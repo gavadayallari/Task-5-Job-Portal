@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 // Enable CORS
 app.use(
   cors({
-    origin: '*',
+    origin: true,
     credentials: true,
   })
 );
