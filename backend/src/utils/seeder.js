@@ -293,7 +293,14 @@ const seedData = async () => {
     ]);
 
     console.log('📂 Seeding 30 job categories...');
-    const createdCategories = await Category.insertMany(CATEGORIES_LIST);
+    const categoriesWithSlug = CATEGORIES_LIST.map((cat) => ({
+      ...cat,
+      slug: cat.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, ''),
+    }));
+    const createdCategories = await Category.insertMany(categoriesWithSlug);
     console.log(`✅ Seeded ${createdCategories.length} categories.`);
 
     console.log('👤 Seeding Admin account...');
