@@ -1,0 +1,359 @@
+{
+  "info": {
+    "_postman_id": "b8f9a1c2-d3e4-4567-8901-talentpulse6auspify",
+    "name": "TalentPulse Job Portal & ATS API (Auspify Task 6)",
+    "description": "Comprehensive REST API Collection for Auspify Technologies Full Stack Internship Task 6 (Job Portal & Applicant Tracking System). Developed by Yallari Gavada.\n\nPrerequisites:\n1. Backend running on http://localhost:5004\n2. Run 'POST 1. Login (Admin)' to authenticate. The response test script automatically stores the JWT token in your environment variable 'talentpulse_token'.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5004",
+      "type": "string"
+    },
+    {
+      "key": "talentpulse_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "POST Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set('talentpulse_token', res.token);",
+                  "    console.log('Saved talentpulse_token for Admin');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@auspify.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "POST Login (Recruiter)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set('talentpulse_token', res.token);",
+                  "    console.log('Saved talentpulse_token for Recruiter');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"recruiter@auspify.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "POST Login (Candidate)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set('talentpulse_token', res.token);",
+                  "    console.log('Saved talentpulse_token for Candidate');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"candidate@auspify.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "POST Register Candidate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Jenkins\",\n  \"email\": \"sarah.jenkins@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"candidate\",\n  \"headline\": \"Frontend React & UI Engineer\",\n  \"location\": \"Pune, India\",\n  \"skills\": [\"React\", \"TypeScript\", \"Tailwind CSS\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "GET Current User (/me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"headline\": \"Senior Full Stack Engineer & Cloud Architect\",\n  \"bio\": \"Passionate about building highly available distributed systems and microservices.\",\n  \"location\": \"Pune, India\",\n  \"skills\": [\"React.js\", \"Node.js\", \"MongoDB\", \"TypeScript\", \"Docker\", \"Postman\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Jobs Catalog & Management",
+      "item": [
+        {
+          "name": "GET All Jobs (Search & Filter)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs?category=Engineering&isRemote=true&sort=newest&page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs"],
+              "query": [
+                { "key": "category", "value": "Engineering" },
+                { "key": "isRemote", "value": "true" },
+                { "key": "sort", "value": "newest" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Create Job (Recruiter)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Staff Backend Microservices Architect\",\n  \"category\": \"Engineering\",\n  \"jobType\": \"Full-time\",\n  \"experienceLevel\": \"Lead\",\n  \"location\": \"San Francisco, CA\",\n  \"isRemote\": true,\n  \"salary\": {\n    \"min\": 160000,\n    \"max\": 195000,\n    \"currency\": \"USD\",\n    \"period\": \"yearly\"\n  },\n  \"description\": \"Lead high-throughput distributed database architecture and low-latency API gateway pipelines.\",\n  \"responsibilities\": [\n    \"Architect distributed Node.js services handling 50k requests/sec\",\n    \"Implement event-driven Kafka and Redis caches\",\n    \"Mentor senior and mid-level engineering contributors\"\n  ],\n  \"requirements\": [\n    \"6+ years of distributed backend engineering experience\",\n    \"Deep mastery of Node.js, Express, MongoDB, and Redis\",\n    \"Proven record of architecting mission-critical platforms\"\n  ],\n  \"benefits\": [\n    \"Top-tier compensation + equity grant\",\n    \"Unlimited vacation and remote flexibility\"\n  ],\n  \"skills\": [\"Node.js\", \"MongoDB\", \"Redis\", \"Docker\", \"Microservices\"],\n  \"isFeatured\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs"]
+            }
+          }
+        },
+        {
+          "name": "GET Recruiter My Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/recruiter/my-jobs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "recruiter", "my-jobs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Applications & ATS Pipeline",
+      "item": [
+        {
+          "name": "GET My Applications (Candidate)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/applications/my-applications",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "my-applications"]
+            }
+          }
+        },
+        {
+          "name": "GET Job Applications (Recruiter ATS)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/applications/job/all",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "job", "all"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Administration & Governance",
+      "item": [
+        {
+          "name": "GET Admin System Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "stats"]
+            }
+          }
+        },
+        {
+          "name": "GET Admin All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "GET Admin All Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{talentpulse_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/jobs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "jobs"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
